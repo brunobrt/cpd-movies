@@ -12,7 +12,7 @@ class CounterStorage {
 
   Future<File> get _localFile async {
     final path = await _localPath;
-    return File('$path/movies.txt');
+    return File('$path/cpd_movies.txt');
   }
 
   Future<String> readMovies() async {
