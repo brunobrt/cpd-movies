@@ -15,6 +15,9 @@ class MoviesScreen extends StatefulWidget {
 class _MoviesScreenState extends State<MoviesScreen> {
   final _scrollController = ScrollController();
   final _textEditingController = TextEditingController();
+  bool _shouldSort = false;
+  bool _shouldSortReversed = false;
+  bool _didChange = false;
   String _searchedMovie = '';
   Icon _customIcon = const Icon(Icons.search);
   Widget _customSearchBar = const Text('CPD Movies');
@@ -29,6 +32,46 @@ class _MoviesScreenState extends State<MoviesScreen> {
   @override
   Widget build(BuildContext ctx) => SafeArea(
         child: Scaffold(
+          persistentFooterButtons: [
+            // TODO: Bruna, corrigir estilo do footer
+            Text('Ordenação Alfabética'),
+            FloatingActionButton(
+              foregroundColor: Colors.white, // TODO: Bruna, corrigir a cor aqui
+              backgroundColor: Theme.of(ctx).colorScheme.secondary,
+              onPressed: () {
+                _shouldSort = false;
+                _shouldSortReversed = false;
+                // TODO: Remove dubug print
+                print('_shouldSort = $_shouldSort');
+                print('_shouldSortReversed = $_shouldSortReversed');
+              },
+              child: Icon(Icons.sort),
+            ),
+            FloatingActionButton(
+              foregroundColor: Colors.white, // TODO: Bruna, corrigir a cor aqui
+              backgroundColor: Theme.of(ctx).colorScheme.primary,
+              onPressed: () {
+                _shouldSort = true;
+                _shouldSortReversed = false;
+                // TODO: Remove dubug print
+                print('_shouldSort = $_shouldSort');
+                print('_shouldSortReversed = $_shouldSortReversed');
+              },
+              child: Icon(Icons.arrow_upward_sharp),
+            ),
+            FloatingActionButton(
+              foregroundColor: Colors.white, // TODO: Bruna, corrigir a cor aqui
+              backgroundColor: Theme.of(ctx).colorScheme.primary,
+              onPressed: () {
+                _shouldSort = false;
+                _shouldSortReversed = true;
+                // TODO: Remove dubug print
+                print('_shouldSort = $_shouldSort');
+                print('_shouldSortReversed = $_shouldSortReversed');
+              },
+              child: Icon(Icons.arrow_downward_sharp),
+            ),
+          ],
           appBar: AppBar(
             automaticallyImplyLeading: false,
             centerTitle: true,
@@ -82,6 +125,9 @@ class _MoviesScreenState extends State<MoviesScreen> {
                         _scrollController.position.maxScrollExtent) {
                       store.dispatch(FetchNewMovieListAction());
                     }
+                    // if (_shouldSort) {
+                    //   store.dispatch(SortMoviesAction(sortMovies: true));
+                    // }
                   },
                 );
               },
@@ -91,6 +137,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
                 itemCount: vm.movies.length,
                 itemBuilder: (ctx, index) => MovieItem(
                   index: index,
+                  // movieData: _shouldSort ? vm.sortedMovies : vm.movies,
                   movieData: vm.movies,
                 ),
               ),
