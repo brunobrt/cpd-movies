@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cpd_movies/models/tmdb_movies.dart';
+import 'package:cpd_movies/screens/movies_details_screen.dart';
+import 'package:cpd_movies/utilities/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:paysmartchallenge/models/tmdb_movies.dart';
-import 'package:paysmartchallenge/screens/movies_details_view.dart';
-import 'package:paysmartchallenge/utilities/constants.dart';
 
 import './movie_genre.dart';
 
@@ -11,11 +11,9 @@ class MovieItem extends StatelessWidget {
   final int index;
 
   const MovieItem({
-    required this.index, required this.movieData,
-  }
-);
-
-
+    required this.index,
+    required this.movieData,
+  });
 
   @override
   Widget build(BuildContext ctx) {
@@ -23,12 +21,13 @@ class MovieItem extends StatelessWidget {
     final _width = MediaQuery.of(ctx).size.width;
 
     return InkWell(
-      onTap: () =>  Navigator.push(
-      ctx,
-      MaterialPageRoute(
-        builder: (context) =>
-            MoviesDetailsScreen(moviesDetails: movieData[index]),
-      ),),
+      onTap: () => Navigator.push(
+        ctx,
+        MaterialPageRoute(
+          builder: (context) =>
+              MoviesDetailsScreen(moviesDetails: movieData[index]),
+        ),
+      ),
       splashColor: Theme.of(ctx).accentColor,
       child: Card(
         shape: RoundedRectangleBorder(

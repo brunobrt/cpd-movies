@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../models/tmdb_movies.dart';
 import '../utils/movie_genre.dart';
 
 class MoviesDetailsScreen extends StatelessWidget {
   static const routeName = '/movie-detail';
 
-  MoviesDetailsScreen();
+  final TmdbMovies moviesDetails;
+
+  MoviesDetailsScreen({required this.moviesDetails});
 
   Widget buildSectionTitle(BuildContext context, String text) => Container(
         margin: EdgeInsets.symmetric(
