@@ -28,7 +28,7 @@ class MovieItem extends StatelessWidget {
               MoviesDetailsScreen(moviesDetails: movieData[index]),
         ),
       ),
-      splashColor: Theme.of(ctx).accentColor,
+      splashColor: Theme.of(ctx).colorScheme.secondary,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Constants.radius),
