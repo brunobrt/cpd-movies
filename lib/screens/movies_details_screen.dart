@@ -45,7 +45,7 @@ class MoviesDetailsScreen extends StatelessWidget {
                         height: _height * 0.65,
                         width: _width,
                         child: Center(
-                          child: Text('${moviesDetails.releaseDate}',
+                          child: Text('The image isn\'t available',
                               style: TextStyle(
                                 fontSize: _width * 0.065,
                                 color: Colors.black,
