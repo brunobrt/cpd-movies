@@ -1,8 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
+import '../models/app_state.dart';
+import '../models/tmdb_movie.dart';
+import '../redux/actions.dart';
 import '../utils/constants.dart';
 import '../utils/movie_genre.dart';
+import '../viewmodel.dart';
 import 'movies_details_screen.dart';
 
 class MoviesScreen extends StatefulWidget {
@@ -27,15 +32,31 @@ class _MoviesScreenState extends State<MoviesScreen> {
           appBar: AppBar(
             title: Center(
               child: const Text(
-                'CPD Movies',
+                'Payflix',
               ),
             ),
           ),
           body: Center(
-            child: ListView.builder(
-              controller: _controller,
-              itemBuilder: (ctx, index) => MovieItem(
-                index: index,
+            child: StoreConnector<AppState, MoviesScreenViewModel>(
+              onInit: (store) {
+                store.dispatch(FetchNewMovieListAction());
+                _controller.addListener(
+                  () {
+                    if (_controller.position.pixels ==
+                        _controller.position.maxScrollExtent) {
+                      store.dispatch(FetchNewMovieListAction());
+                    }
+                  },
+                );
+              },
+              converter: (store) => MoviesScreenViewModel(store),
+              builder: (ctx, vm) => ListView.builder(
+                controller: _controller,
+                itemCount: vm.movies.length,
+                itemBuilder: (ctx, index) => MovieItem(
+                  index: index,
+                  movieData: vm.movies,
+                ),
               ),
             ),
           ),
@@ -44,10 +65,12 @@ class _MoviesScreenState extends State<MoviesScreen> {
 }
 
 class MovieItem extends StatelessWidget {
+  final List<TmdbMovies> movieData;
   final int index;
 
   const MovieItem({
     required this.index,
+    required this.movieData,
   });
 
   @override
@@ -59,7 +82,8 @@ class MovieItem extends StatelessWidget {
       onTap: () => Navigator.push(
         ctx,
         MaterialPageRoute(
-          builder: (context) => MoviesDetailsScreen(),
+          builder: (context) =>
+              MoviesDetailsScreen(moviesDetails: movieData[index]),
         ),
       ),
       splashColor: Theme.of(ctx).colorScheme.secondary,
@@ -79,7 +103,7 @@ class MovieItem extends StatelessWidget {
                     topRight: Radius.circular(Constants.radius),
                   ),
                   child: Image.network(
-                    'poster',
+                    '${Constants.imageUrl}${movieData[index].posterPath}',
                     height: _height * 0.65,
                     width: _width,
                     fit: BoxFit.cover,
@@ -109,7 +133,7 @@ class MovieItem extends StatelessWidget {
                       horizontal: _width * 0.05,
                     ),
                     child: Text(
-                      'filme',
+                      '${movieData[index].title}',
                       style: TextStyle(
                         fontSize: _width * 0.065,
                         color: Colors.white,
@@ -134,7 +158,7 @@ class MovieItem extends StatelessWidget {
                       SizedBox(
                         width: _width * 0.02,
                       ),
-                      Text('lançamento'),
+                      Text('${movieData[index].releaseDate}'),
                     ],
                   ),
                   Row(
@@ -146,7 +170,7 @@ class MovieItem extends StatelessWidget {
                         width: _width * 0.02,
                       ),
                       AutoSizeText(
-                        '${listOfGenres.length}',
+                        '${movieGenreList(ids: movieData[index].genreIds!)}',
                         maxLines: 3,
                         softWrap: true,
                       ),

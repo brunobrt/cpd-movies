@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:built_collection/built_collection.dart';
 
 Map<int, String> listOfGenres = {
@@ -20,3 +21,8 @@ Map<int, String> listOfGenres = {
   10752: 'War',
   37: 'Western'
 };
+
+String movieGenreList({required BuiltList<int> ids}) =>
+    List<String?>.generate(ids.length, (index) => listOfGenres[ids[index]])
+        .first
+        .toString();
