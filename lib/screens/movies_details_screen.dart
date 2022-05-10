@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../models/tmdb_movies.dart';
+import '../utilities/constants.dart';
 import '../utils/movie_genre.dart';
 
 class MoviesDetailsScreen extends StatelessWidget {
   static const routeName = '/movie-detail';
 
-  MoviesDetailsScreen();
+  final TmdbMovies moviesDetails;
+
+  MoviesDetailsScreen({required this.moviesDetails});
 
   Widget buildSectionTitle(BuildContext context, String text) => Container(
         margin: EdgeInsets.symmetric(
@@ -23,7 +27,7 @@ class MoviesDetailsScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('nome filme'),
+          title: Text('${moviesDetails.title}'),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -32,7 +36,7 @@ class MoviesDetailsScreen extends StatelessWidget {
                 children: <Widget>[
                   ClipRRect(
                     child: Image.network(
-                      'imagem',
+                      '${Constants.imageUrl}${moviesDetails.posterPath}',
                       height: _height * 0.65,
                       width: _width,
                       fit: BoxFit.cover,
@@ -65,7 +69,7 @@ class MoviesDetailsScreen extends StatelessWidget {
                         SizedBox(
                           width: _width * 0.02,
                         ),
-                        Text('lançamento'),
+                        Text('${moviesDetails.releaseDate}'),
                       ],
                     ),
                     Row(
@@ -95,7 +99,7 @@ class MoviesDetailsScreen extends StatelessWidget {
                     SizedBox(
                       width: _width * 0.1,
                     ),
-                    Text('qualquer coisa aqui'),
+                    Text('${moviesDetails.overview}'),
                   ],
                 ),
               )
