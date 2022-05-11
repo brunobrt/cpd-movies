@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/tmdb_movies.dart';
 import '../utilities/constants.dart';
-import '../utils/movie_genre.dart';
+import '../widgets/movie_genre.dart';
 
 class MoviesDetailsScreen extends StatelessWidget {
   static const routeName = '/movie-detail';
