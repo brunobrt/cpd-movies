@@ -17,7 +17,6 @@ class _MoviesScreenState extends State<MoviesScreen> {
   final _textEditingController = TextEditingController();
   bool _shouldSort = false;
   bool _shouldSortReversed = false;
-  bool _didChange = false;
   String _searchedMovie = '';
   Icon _customIcon = const Icon(Icons.search);
   Widget _customSearchBar = const Text('CPD Movies');
