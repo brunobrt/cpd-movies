@@ -33,10 +33,9 @@ class _MoviesScreenState extends State<MoviesScreen> {
   Widget build(BuildContext ctx) => SafeArea(
         child: Scaffold(
           persistentFooterButtons: [
-            // TODO: Bruna, corrigir estilo do footer
             Text('Ordenação Alfabética'),
             FloatingActionButton(
-              foregroundColor: Colors.white, // TODO: Bruna, corrigir a cor aqui
+              foregroundColor: Colors.white,
               backgroundColor: Theme.of(ctx).colorScheme.secondary,
               onPressed: () {
                 _shouldSort = false;
@@ -45,7 +44,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
               child: Icon(Icons.sort),
             ),
             FloatingActionButton(
-              foregroundColor: Colors.white, // TODO: Bruna, corrigir a cor aqui
+              foregroundColor: Colors.white,
               backgroundColor: Theme.of(ctx).colorScheme.primary,
               onPressed: () {
                 _shouldSort = true;
@@ -55,7 +54,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
               child: Icon(Icons.arrow_upward_sharp),
             ),
             FloatingActionButton(
-              foregroundColor: Colors.white, // TODO: Bruna, corrigir a cor aqui
+              foregroundColor: Colors.white,
               backgroundColor: Theme.of(ctx).colorScheme.primary,
               onPressed: () {
                 _shouldSort = false;
