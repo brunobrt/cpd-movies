@@ -10,9 +10,6 @@ AppState updateMoviesReducer(AppState currentState, action) =>
       hasError: _hasErrorReducer(currentState.hasError, action),
       movies: _moviesReducer(currentState.movies, action),
       currentPage: _currentPageReducer(currentState.currentPage, action),
-      // shouldSort: _shouldSortReducer(currentState.shouldSort, action),
-      // shouldSortReversed:
-      //     _shouldSortReversedReducer(currentState.shouldSortReversed, action),
     );
 
 final _currentPageReducer = combineReducers<int>(
@@ -50,8 +47,3 @@ final _hasErrorReducer = combineReducers<bool?>(
 );
 
 bool? _fetchNewMovieListFailedReducer(currentState, action) => action.hasError;
-//
-// bool? _shouldSortReducer(currentState, action) => action.shouldSort;
-//
-// bool? _shouldSortReversedReducer(currentState, action) =>
-//     action.shouldSortReversed;
