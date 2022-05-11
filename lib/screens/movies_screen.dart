@@ -41,9 +41,6 @@ class _MoviesScreenState extends State<MoviesScreen> {
               onPressed: () {
                 _shouldSort = false;
                 _shouldSortReversed = false;
-                // TODO: Remove dubug print
-                print('_shouldSort = $_shouldSort');
-                print('_shouldSortReversed = $_shouldSortReversed');
               },
               child: Icon(Icons.sort),
             ),
@@ -53,8 +50,6 @@ class _MoviesScreenState extends State<MoviesScreen> {
               onPressed: () {
                 _shouldSort = true;
                 _shouldSortReversed = false;
-                // TODO: Remove dubug print
-                print('_shouldSort = $_shouldSort');
                 print('_shouldSortReversed = $_shouldSortReversed');
               },
               child: Icon(Icons.arrow_upward_sharp),
@@ -64,10 +59,6 @@ class _MoviesScreenState extends State<MoviesScreen> {
               backgroundColor: Theme.of(ctx).colorScheme.primary,
               onPressed: () {
                 _shouldSort = false;
-                _shouldSortReversed = true;
-                // TODO: Remove dubug print
-                print('_shouldSort = $_shouldSort');
-                print('_shouldSortReversed = $_shouldSortReversed');
               },
               child: Icon(Icons.arrow_downward_sharp),
             ),
@@ -125,9 +116,6 @@ class _MoviesScreenState extends State<MoviesScreen> {
                         _scrollController.position.maxScrollExtent) {
                       store.dispatch(FetchNewMovieListAction());
                     }
-                    // if (_shouldSort) {
-                    //   store.dispatch(SortMoviesAction(sortMovies: true));
-                    // }
                   },
                 );
               },
@@ -137,7 +125,6 @@ class _MoviesScreenState extends State<MoviesScreen> {
                 itemCount: vm.movies.length,
                 itemBuilder: (ctx, index) => MovieItem(
                   index: index,
-                  // movieData: _shouldSort ? vm.sortedMovies : vm.movies,
                   movieData: vm.movies,
                 ),
               ),
