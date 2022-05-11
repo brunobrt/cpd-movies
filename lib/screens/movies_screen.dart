@@ -32,16 +32,6 @@ class _MoviesScreenState extends State<MoviesScreen> {
   Widget build(BuildContext ctx) => SafeArea(
         child: Scaffold(
           persistentFooterButtons: [
-            Text('Ordenação Alfabética'),
-            FloatingActionButton(
-              foregroundColor: Colors.white,
-              backgroundColor: Theme.of(ctx).colorScheme.secondary,
-              onPressed: () {
-                _shouldSort = false;
-                _shouldSortReversed = false;
-              },
-              child: Icon(Icons.sort),
-            ),
             FloatingActionButton(
               foregroundColor: Colors.white,
               backgroundColor: Theme.of(ctx).colorScheme.primary,
@@ -74,14 +64,14 @@ class _MoviesScreenState extends State<MoviesScreen> {
                         leading: Icon(
                           Icons.search,
                           color: Colors.white,
-                          size: 28,
+                          size: 24,
                         ),
                         title: TextField(
                           decoration: InputDecoration(
                             hintText: 'Escreva o nome do filme',
                             hintStyle: TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: 16,
                               fontStyle: FontStyle.italic,
                             ),
                             border: InputBorder.none,
