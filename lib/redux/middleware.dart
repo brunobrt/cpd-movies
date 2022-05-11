@@ -23,7 +23,9 @@ Middleware<AppState> _fetchNewMovieMiddleware() => (store, action, next) async {
           FetchNewMovieListFailedAction(hasError: true),
         );
       } finally {
-        store.dispatch(IsLoadingAction(isLoading: false));
+        store.dispatch(IsLoadingAction(
+          isLoading: false,
+        ));
       }
       next(action);
     };

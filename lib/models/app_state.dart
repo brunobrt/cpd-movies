@@ -15,8 +15,12 @@ class AppState {
     required this.movies,
   });
 
-  factory AppState.initialState() =>
-      AppState(currentPage: 1, isLoading: false, movies: [], hasError: null);
+  factory AppState.initialState() => AppState(
+        currentPage: 1,
+        isLoading: false,
+        movies: [],
+        hasError: null,
+      );
 
   AppState copyWith({
     required List<TmdbMovies>? movies,

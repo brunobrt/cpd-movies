@@ -13,32 +13,95 @@ class MoviesScreen extends StatefulWidget {
 }
 
 class _MoviesScreenState extends State<MoviesScreen> {
-  final _controller = ScrollController();
+  final _scrollController = ScrollController();
+  final _textEditingController = TextEditingController();
+  bool _shouldSort = false;
+  bool _shouldSortReversed = false;
+  String _searchedMovie = '';
+  Icon _customIcon = const Icon(Icons.search);
+  Widget _customSearchBar = const Text('CPD Movies');
 
   @override
   void dispose() {
-    _controller.dispose();
+    _scrollController.dispose();
+    _textEditingController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext ctx) => SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            title: Center(
-              child: const Text(
-                'CPD Movies',
-              ),
+          persistentFooterButtons: [
+            FloatingActionButton(
+              foregroundColor: Colors.white,
+              backgroundColor: Theme.of(ctx).colorScheme.primary,
+              onPressed: () {
+                _shouldSort = true;
+                _shouldSortReversed = false;
+                print('_shouldSortReversed = $_shouldSortReversed');
+              },
+              child: Icon(Icons.arrow_upward_sharp),
             ),
+            FloatingActionButton(
+              foregroundColor: Colors.white,
+              backgroundColor: Theme.of(ctx).colorScheme.primary,
+              onPressed: () {
+                _shouldSort = false;
+              },
+              child: Icon(Icons.arrow_downward_sharp),
+            ),
+          ],
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            actions: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    if (_customIcon.icon == Icons.search) {
+                      _customIcon = const Icon(Icons.cancel);
+                      _customSearchBar = ListTile(
+                        leading: Icon(
+                          Icons.search,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                        title: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Escreva o nome do filme',
+                            hintStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                          controller: _textEditingController,
+                        ),
+                      );
+                      _searchedMovie = _textEditingController.text;
+                    } else {
+                      _customIcon = const Icon(Icons.search);
+                      _customSearchBar = const Text('CPD Movies');
+                    }
+                  });
+                },
+                icon: _customIcon,
+              ),
+            ],
+            title: _customSearchBar,
           ),
           body: Center(
             child: StoreConnector<AppState, MoviesScreenViewModel>(
               onInit: (store) {
                 store.dispatch(FetchNewMovieListAction());
-                _controller.addListener(
+                _scrollController.addListener(
                   () {
-                    if (_controller.position.pixels ==
-                        _controller.position.maxScrollExtent) {
+                    if (_scrollController.position.pixels ==
+                        _scrollController.position.maxScrollExtent) {
                       store.dispatch(FetchNewMovieListAction());
                     }
                   },
@@ -46,7 +109,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
               },
               converter: (store) => MoviesScreenViewModel(store),
               builder: (ctx, vm) => ListView.builder(
-                controller: _controller,
+                controller: _scrollController,
                 itemCount: vm.movies.length,
                 itemBuilder: (ctx, index) => MovieItem(
                   index: index,

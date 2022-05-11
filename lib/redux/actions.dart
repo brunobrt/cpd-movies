@@ -3,9 +3,9 @@ import 'package:cpd_movies/models/tmdb_movies.dart';
 class FetchNewMovieListAction {}
 
 class IncrementPageAction {
-  final int curentPage;
+  final int currentPage;
 
-  IncrementPageAction(this.curentPage);
+  IncrementPageAction(this.currentPage);
 }
 
 class FetchNewMovieListSucceededAction {
@@ -23,5 +23,7 @@ class FetchNewMovieListFailedAction {
 class IsLoadingAction {
   final bool isLoading;
 
-  IsLoadingAction({required this.isLoading});
+  IsLoadingAction({
+    required this.isLoading,
+  });
 }
