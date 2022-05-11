@@ -7,16 +7,12 @@ class AppState {
   final bool isLoading;
   final int currentPage;
   final bool? hasError;
-  // final bool shouldSort;
-  // final bool shouldSortReversed;
 
   AppState({
     required this.hasError,
     required this.isLoading,
     required this.currentPage,
     required this.movies,
-    // required this.shouldSort,
-    // required this.shouldSortReversed,
   });
 
   factory AppState.initialState() => AppState(
@@ -24,8 +20,6 @@ class AppState {
         isLoading: false,
         movies: [],
         hasError: null,
-        // shouldSort: false,
-        // shouldSortReversed: false,
       );
 
   AppState copyWith({
@@ -33,15 +27,11 @@ class AppState {
     required bool? isLoading,
     required int? currentPage,
     required bool? hasError,
-    // required bool? shouldSort,
-    // required bool? shouldSortReversed,
   }) =>
       AppState(
         movies: movies ?? this.movies,
         isLoading: isLoading ?? this.isLoading,
         currentPage: currentPage ?? this.currentPage,
         hasError: hasError ?? this.hasError,
-        // shouldSort: shouldSort ?? this.shouldSort,
-        // shouldSortReversed: shouldSortReversed ?? this.shouldSortReversed,
       );
 }
